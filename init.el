@@ -38,7 +38,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(julia-repl julia-mode vterm highlight-parentheses company ess use-package)))
+   '(ace-window julia-repl julia-mode vterm highlight-parentheses company ess use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -81,6 +81,7 @@
   (split-window-vertically)
   (R)
   (other-window -1)
+  (global-set-key (kbd "M--") " <- ")
   )
   
 ;; Define path to Julia
@@ -119,3 +120,18 @@
 
 ;; All files backup in the same place
 (setq backup-directory-alist '(("." . "~/.emacs_backups")))
+
+;; Insert header to file
+(defun header()
+  "Insert header into file"
+  (interactive)
+  (progn
+    (insert-file "~/.emacs.d/header")
+    (re-search-forward "Date:")
+    (insert (format-time-string " %Y-%m-%d"))))
+
+;; ace window keybinding
+(global-set-key (kbd "M-o") 'ace-window)
+
+
+(add-hook 'org-mode-hook #'my/add-org-pink-binding)
