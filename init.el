@@ -25,11 +25,11 @@
 )
 
 ;; Setup mode-line
+(setq column-number-mode t)
 (require 'simple-modeline)
 (simple-modeline-mode 1)
 
-
-; Parentheses
+;; Parentheses
 (use-package highlight-parentheses
   :ensure t
   :config
@@ -37,13 +37,21 @@
     (highlight-parentheses-mode)
     (global-highlight-parentheses-mode))
   )
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("01cf34eca93938925143f402c2e6141f03abb341f27d1c2dba3d50af9357ce70" default))
  '(package-selected-packages
-   '(simple-modeline telephone-line ace-window julia-repl julia-mode vterm highlight-parentheses company ess use-package)))
+   '(org-superstar magit tangotango-theme doom-themes simple-modeline ace-window julia-repl julia-mode vterm highlight-parentheses company ess use-package))
+ '(simple-modeline-mode t)
+ '(simple-modeline-segments
+   '((simple-modeline-segment-modified simple-modeline-segment-buffer-name simple-modeline-segment-position)
+     (simple-modeline-segment-vc simple-modeline-segment-process simple-modeline-segment-major-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -138,5 +146,23 @@
 ;; ace window keybinding
 (global-set-key (kbd "M-o") 'ace-window)
 
+;; Set theme
+(load-theme 'tangotango t)
 
-(add-hook 'org-mode-hook #'my/add-org-pink-binding)
+;; Use superstar bullets
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (org-superstar-mode 1)
+	    (org-superstar-configure-like-org-bullets)
+	    (org-indent-mode t)
+	    (visual-line-mode)
+	    ))
+
+;; Insert current date-time
+(defun date-time()
+  "Insert current date and time"
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d %H:%M:%S")))
+
+;; Set default font
+(set-de
